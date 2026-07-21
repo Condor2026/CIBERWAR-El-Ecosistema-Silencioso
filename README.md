@@ -1,4 +1,14 @@
-# 🌐 CIBERGUERRA: EL ECOSISTEMA HACKTIVISTA PRORRUSO
+# 🌐 CIBERGUERRA: EL ECOSISTEMA HACKTIVISTA PRORRUSO  🌐 CIBERWAR · El Ecosistema Silencioso
+
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=28&duration=3000&pause=500&color=00FF00&center=true&vCenter=true&width=700&lines=INFORME+CTI+GLOBAL;EL+NUEVO+ORDEN+DEL+CIBERESPACIO;LA+GUERRA+QUE+NADIE+VE" alt="Typing animation" />
+</p>
+
+
+**Informe OSINT sobre hacktivismo prorruso · Killnet · NoName057(16) · DDoSia · Amenazas Híbridas**
+
+*(...resto del README...)*
+
 
 ## Un Dossier de Inteligencia OSINT sobre Killnet, NoName057(16) y la Nueva Generación de Amenazas Híbridas
 **Autor:** Condor2026
