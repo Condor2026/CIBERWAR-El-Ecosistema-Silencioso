@@ -487,6 +487,18 @@ No es paranoia. Es realidad.#CiberWar #CyberWar #Ciberseguridad #InformacionLibr
 
 ---
 
+## 📁 Contenido
+
+| Archivo | Descripción |
+|---------|-------------|
+| `webkilnetinfo.htm` | Informe completo en formato HTML (estilo foro hacker) |
+| `README.md` | Este archivo |
+| `LICENSE` | Licencia MIT |
+| `CONTRIBUTING.md` | Guía para colaboradores |
+| `SECURITY.md` | Política de seguridad |
+| `DISCLAIMER.md` | Exención de responsabilidad legal |
+
+
 ## 🚀 Ver el informe en html
 
 ### Opción 1 — Directo (sin servidor)
