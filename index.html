@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIBERWAR · El Ecosistema Silencioso</title>
+    <style>
+        /* ===== RESET Y BASE OSCURA ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0b0e14;
+            background-image:
+                radial-gradient(ellipse at 10% 20%, rgba(0, 255, 136, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 90% 80%, rgba(0, 200, 255, 0.03) 0%, transparent 50%);
+            color: #b0c4d9;
+            font-family: 'Courier New', 'Fira Code', monospace;
+            padding: 20px;
+            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        /* ===== CONTENEDOR PRINCIPAL ===== */
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            background: rgba(10, 14, 23, 0.92);
+            border: 1px solid #1a2a3a;
+            border-radius: 12px;
+            padding: 30px 35px;
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.04), inset 0 0 60px rgba(0, 0, 0, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,136,0.005) 2px, rgba(0,255,136,0.005) 4px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .container > * { position: relative; z-index: 1; }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0b0e14; }
+        ::-webkit-scrollbar-thumb { background: #1a2a3a; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2a3a4a; }
+
+        /* ===== TIPOGRAFÍA ===== */
+        h1 {
+            font-size: 2.8em;
+            font-weight: 700;
+            color: #00ff88;
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.15), 0 0 60px rgba(0, 255, 136, 0.05);
+            letter-spacing: 4px;
+            border-bottom: 2px solid #00ff88;
+            padding-bottom: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        h1 small {
+            font-size: 0.35em;
+            color: #66d9ff;
+            font-weight: 400;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            text-shadow: none;
+        }
+        h2 {
+            color: #66d9ff;
+            font-size: 1.8em;
+            margin-top: 45px;
+            margin-bottom: 15px;
+            border-left: 4px solid #00ff88;
+            padding-left: 18px;
+            text-shadow: 0 0 20px rgba(102, 217, 255, 0.08);
+        }
+        h3 {
+            color: #ffcc66;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        h3::before {
+            content: "◆";
+            color: #00ff88;
+            font-size: 0.8em;
+            opacity: 0.6;
+        }
+        h4 {
+            color: #ff9966;
+            font-size: 1.1em;
+            margin-top: 22px;
+            margin-bottom: 8px;
+        }
+        h5 {
+            color: #88aacc;
+            font-size: 1em;
+            margin-top: 18px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        /* ===== CITA ===== */
+        .quote {
+            font-style: italic;
+            color: #88ddff;
+            border-left: 4px solid #00ff88;
+            padding: 16px 24px;
+            margin: 30px 0;
+            background: rgba(0, 255, 136, 0.03);
+            border-radius: 0 8px 8px 0;
+            font-size: 1.1em;
+            box-shadow: inset 0 0 30px rgba(0, 255, 136, 0.02);
+        }
+        .quote strong { color: #00ff88; }
+
+        /* ===== SECCIONES ===== */
+        .section {
+            background: rgba(13, 20, 32, 0.6);
+            border: 1px solid #1a2a3a;
+            border-radius: 10px;
+            padding: 22px 26px;
+            margin: 30px 0;
+            transition: border-color 0.2s;
+        }
+        .section:hover {
+            border-color: #2a3a4a;
+        }
+
+        /* ===== LISTAS ===== */
+        ul {
+            list-style: none;
+            padding-left: 6px;
+            margin: 10px 0;
+        }
+        ul li {
+            padding: 4px 0 4px 28px;
+            position: relative;
+        }
+        ul li::before {
+            content: "▸";
+            position: absolute;
+            left: 4px;
+            color: #00ff88;
+            font-weight: bold;
+            opacity: 0.7;
+        }
+        ul li strong { color: #e0e8f0; }
+
+        /* ===== TABLAS (estilo consola) ===== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 18px 0;
+            font-size: 0.9em;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th {
+            background: #0f1a28;
+            color: #66d9ff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.75em;
+            padding: 12px 12px;
+            border-bottom: 2px solid #1a2a3a;
+            text-align: left;
+        }
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #121e2e;
+            vertical-align: top;
+        }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: rgba(0, 255, 136, 0.02); }
+
+        /* ===== CÓDIGO INLINE ===== */
+        code {
+            background: #0f1a28;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #66d9ff;
+            border: 1px solid #1a2a3a;
+        }
+
+        /* ===== BADGES ===== */
+        .badge {
+            display: inline-block;
+            background: #1a0a0a;
+            color: #ff4466;
+            font-weight: 700;
+            padding: 2px 12px;
+            border-radius: 20px;
+            border: 1px solid #ff4466;
+            font-size: 0.8em;
+            letter-spacing: 0.5px;
+        }
+        .badge-green {
+            background: #0a1a0a;
+            color: #00ff88;
+            border-color: #00ff88;
+        }
+        .badge-yellow {
+            background: #1a1a0a;
+            color: #ffcc66;
+            border-color: #ffcc66;
+        }
+
+        /* ===== ESTADO (rojo/verde/amarillo) ===== */
+        .status-red { color: #ff4466; font-weight: 600; }
+        .status-green { color: #00ff88; font-weight: 600; }
+        .status-yellow { color: #ffcc66; font-weight: 600; }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #1a2a3a;
+            font-size: 0.85em;
+            color: #556;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer .left { color: #667; }
+        .footer .right { color: #445; font-size: 0.9em; }
+        .footer .highlight { color: #00ff88; }
+
+        /* ===== EFECTO TERMINAL (línea superior) ===== */
+        .term-bar {
+            background: #0b0e14;
+            padding: 8px 16px;
+            border-radius: 8px 8px 0 0;
+            border-bottom: 1px solid #1a2a3a;
+            display: flex;
+            gap: 12px;
+            font-size: 0.75em;
+            color: #556;
+            margin: -22px -26px 20px -26px;
+            align-items: center;
+        }
+        .term-bar .dots span {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+        .term-bar .dots .red { background: #ff4466; }
+        .term-bar .dots .yellow { background: #ffcc66; }
+        .term-bar .dots .green { background: #00ff88; }
+        .term-bar .path {
+            color: #66d9ff;
+            font-family: 'Fira Code', monospace;
+            margin-left: 10px;
+        }
+        .term-bar .path span { color: #ffcc66; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 700px) {
+            body { padding: 10px; }
+            .container { padding: 18px 16px; }
+            h1 { font-size: 2em; flex-wrap: wrap; }
+            h1 small { font-size: 0.4em; }
+            .section { padding: 16px; }
+            .term-bar { flex-wrap: wrap; gap: 6px; margin: -16px -16px 16px -16px; }
+            table { font-size: 0.75em; }
+            td, th { padding: 6px 8px; }
+            .footer { flex-direction: column; gap: 8px; text-align: center; }
+        }
+
+        /* ===== ANIMACIÓN SUTIL ===== */
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+        .blink {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- BARRA DE TERMINAL -->
+    <div class="term-bar">
+        <div class="dots">
+            <span class="red"></span>
+            <span class="yellow"></span>
+            <span class="green"></span>
+        </div>
+        <span class="path">root@osint:~/<span>CIBERWAR</span></span>
+        <span style="margin-left:auto; color:#445;">[ 21/07/2026 ]</span>
+    </div>
+
+    <!-- ===== TÍTULO ===== -->
+    <h1>
+        🌐 CIBERWAR
+        <small>El Ecosistema Silencioso</small>
+    </h1>
+    <p style="color:#667; margin-bottom: 20px; font-size:0.95em; letter-spacing: 1px;">
+        INFORME OSINT · HACKTIVISMO PRORRUSO · KILLNET · NONAME057(16) · DDOSIA · AMENAZAS HÍBRIDAS
+    </p>
+
+    <!-- ===== CITA PRINCIPAL ===== -->
+    <div class="quote">
+        "La guerra ya no se libra solo con tanques y misiles. La CiberWar es la guerra del siglo XXI: <strong>Silenciosa, invisible y permanente</strong>. No podemos callar."
+    </div>
+
+    <!-- ======================== PRÓLOGO ======================== -->
+    <div class="section">
+        <h3>📖 PRÓLOGO · NO PODEMOS CALLAR</h3>
+        <p>La guerra ya no se libra solo con tanques y misiles. La CiberWar es la guerra del siglo XXI: <strong>Silenciosa, invisible y permanente</strong>.</p>
+        <p>Estados, grupos y actores privados atacan infraestructuras críticas, roban datos de millones de personas, manipulan elecciones, destruyen economías y siembran caos sin disparar un solo tiro.</p>
+        <p>No es ciencia ficción. <strong>Está ocurriendo ahora.</strong></p>
+        <p>Durante años, investigadores independientes han recopilado información, patrones, incidentes y conexiones que pocos quieren ver completos. Esta historia es larga. Muy larga.</p>
+        <p><span class="badge">✹</span> <strong style="color:#ff4466;">Hay que liberar la información. No debemos callar.</strong></p>
+        <p>La CiberWar no tiene frentes claros ni banderas oficiales:</p>
+        <ul>
+            <li>Ataques a redes eléctricas</li>
+            <li>Sabotaje a sistemas de agua y transporte</li>
+            <li>Robo masivo de propiedad intelectual</li>
+            <li>Campañas de desinformación a escala industrial</li>
+            <li>Infiltración en cadenas de suministro (SolarWinds, Colonial Pipeline, entre otros, son solo la punta visible)</li>
+        </ul>
+        <p><strong>Todo diseñado para debilitar sin declarar guerra formal.</strong></p>
+        <p>Los actores principales ya son conocidos:</p>
+        <ul>
+            <li>Naciones con capacidades avanzadas que invierten miles de millones en unidades militares cibernéticas</li>
+            <li>Grupos patrocinados por estados que operan con impunidad</li>
+            <li>Mercenarios digitales, ransomware como arma geopolítica y espionaje industrial a gran escala</li>
+        </ul>
+        <p>Pero detrás de lo técnico hay algo más grave: <strong>la erosión de la soberanía digital y la confianza pública.</strong></p>
+        <p>Este no es un informe completo (es imposible en un solo documento). Es el primero de una serie de análisis sobre el ecosistema de ciberguerra, con datos, patrones y análisis, sin sensacionalismo pero sin autocensura.</p>
+        <p><span class="badge">✹</span> <strong style="color:#ff4466;">La verdad duele, pero la ignorancia mata más lento.</strong></p>
+        <p>Si eres técnico, analista, periodista, funcionario o simplemente ciudadano preocupado: comparte esta información. La CiberWar se combate también con conciencia colectiva. <strong>La información debe circular más rápido que los ataques.</strong></p>
+    </div>
+
+    <!-- ======================== CONTEXTO ======================== -->
+    <div class="section">
+        <h3>🌍 CONTEXTO · EL NACIMIENTO DE UNA GUERRA HÍBRIDA</h3>
+        <h4>El Escenario (2021-2022)</h4>
+        <p>Cuando las tensiones entre Rusia y Ucrania comenzaron a escalar a finales de 2021, algo extraño ocurrió en los rincones más oscuros de internet. Grupos que hasta entonces se dedicaban a actividades delictivas menores comenzaron a hablar en términos políticos. Alguien, en algún lugar, había encendido una chispa.</p>
+        <p><strong>Killnet</strong> fue uno de los primeros en dar el salto. Inicialmente operaba como un grupo de Malware-as-a-Service (MaaS) que ofrecía ataques DDoS por alquiler. Pero cuando Rusia invadió Ucrania en febrero de 2022, Killnet se transformó: ya no era un negocio, era una causa. Sus líderes comenzaron a hablar de "patriotismo", de "defender a Rusia de la agresión de la OTAN".</p>
+        <p>No estaban solos. Surgieron otros como <strong>Xaknet</strong>, <strong>Cyber Army of Russia Reborn</strong> y, más tarde, el grupo que acabaría superando a todos en actividad: <strong>NoName057(16)</strong>.</p>
+        <h4>¿Por qué Telegram?</h4>
+        <p>Para entender este ecosistema, hay que entender Telegram. La plataforma, fundada por el ruso Pavel Durov, se convirtió en el centro de mando de estos grupos por varias razones:</p>
+        <ul>
+            <li><strong>Cifrado y anonimato:</strong> Ofrece canales con cifrado de extremo a extremo y la posibilidad de operar con relativo anonimato.</li>
+            <li><strong>Canales públicos:</strong> Cualquiera puede crear un canal y atraer seguidores sin necesidad de verificación.</li>
+            <li><strong>Resistencia a la censura:</strong> Aunque Telegram ha bloqueado algunos canales, los grupos crean rápidamente backups y espejos.</li>
+            <li><strong>Comunidad:</strong> Los canales de Telegram se convirtieron en comunidades donde los miembros comparten herramientas, celebran victorias y reclutan nuevos voluntarios.</li>
+        </ul>
+        <p>Mientras el mundo dormía, estos canales bullían de actividad. Los administradores publicaban objetivos, los voluntarios lanzaban ataques desde sus ordenadores domésticos, y los resultados se compartían como trofeos de guerra.</p>
+    </div>
+
+    <!-- ======================== KILLNET ======================== -->
+    <div class="section">
+        <h3>🧬 KILLNET · EL PRIMER GRAN ACTOR</h3>
+        <h4>Orígenes y Fundador</h4>
+        <p>Killnet emergió en 2021 como un grupo de ciberdelincuencia, pero fue la guerra en Ucrania lo que lo catapultó a la fama. Su fundador, que operaba bajo el alias <strong>KillMilk</strong>, fue identificado por medios rusos en noviembre de 2023 como <strong>Nikolai Nikolaevich Serafimov</strong>.</p>
+        <p>Nacido el 16 de mayo de 1993, Serafimov tenía 30 años cuando fue desenmascarado. Su historial incluía una condena por producción y distribución de sustancias narcóticas. Estaba casado y poseía al menos dos coches de lujo: un BMW 520i y un Porsche Panamera. No era exactamente el perfil del "hacktivista idealista" que sus seguidores imaginaban.</p>
+        <h4>El Auge de Killnet (2022)</h4>
+        <p>Durante 2022, Killnet se convirtió en el grupo hacktivista prorruso más prominente. Sus ataques DDoS alcanzaron objetivos de alto perfil:</p>
+        <ul>
+            <li><strong>Mayo 2022:</strong> Amenazaron con atacar servidores en España en respuesta a la "actitud de sus medios de comunicación" respecto a Rusia.</li>
+            <li><strong>Octubre 2022:</strong> Lanzaron un llamamiento a atacar los aeropuertos de Estados Unidos.</li>
+            <li><strong>Noviembre 2022:</strong> Atacaron el Departamento del Tesoro de EE.UU.</li>
+            <li><strong>Agosto 2022:</strong> Atacaron a Lockheed Martin, el gigante de la defensa estadounidense.</li>
+        </ul>
+        <p>Pero Killnet no solo atacaba. También reclutaba. Su estructura de "Legión" incluía múltiples escuadrones con nombres como <strong>Squad Jacky</strong>, <strong>Squad Mirai</strong>, <strong>Squad Impulse</strong>, <strong>Squad Kratos</strong>, <strong>Squad Phoenix</strong> y muchos más. Cada escuadrón operaba con cierta autonomía, pero todos respondían al liderazgo central de KillMilk.</p>
+        <h4>La Caída de KillMilk y la Venta de Killnet</h4>
+        <p>En noviembre de 2023, la publicación rusa <em>Gazeta.Ru</em> expuso la identidad de KillMilk. No está claro si fue un acto de periodismo independiente o una operación orquestada, pero el resultado fue el mismo: KillMilk quedó expuesto.</p>
+        <p>Poco después, Killnet fue vendido. El comprador fue <strong>Deanon Club</strong>, un colectivo que se presentaba como una organización antidroga. Su administrador, conocido como <strong>BTC</strong>, adquirió los activos de Killnet por una cantidad estimada entre <strong>$10,000 y $50,000</strong>.</p>
+        <p>En una entrevista posterior, BTC explicó sus motivaciones:</p>
+        <div class="quote">"La compra de Killnet es un proceso de expansión de Deanon Club. Killnet es una marca. Además, quería obtener a la gente junto con el grupo. No solo a la audiencia..."</div>
+        <p>Killnet ya no era un movimiento; era un producto.</p>
+        <h4>Fragmentación · El Árbol Genealógico de Killnet</h4>
+        <p>La venta de Killnet provocó su fragmentación en múltiples facciones:</p>
+        <ul>
+            <li><strong>Killnet Original (Deanon Club):</strong> Continuó operando bajo la nueva dirección, pero con un enfoque más comercial.</li>
+            <li><strong>Killnet 2.0:</strong> Una escisión de miembros que rechazaban la comercialización y mantenían la línea ideológica.</li>
+            <li><strong>Just Evil:</strong> Fundado por el propio KillMilk después de perder el control de su creación.</li>
+            <li><strong>Phoenix:</strong> Una escisión que se dedicó completamente al cibercrimen, vendiendo accesos y datos robados.</li>
+            <li><strong>Black Skills:</strong> Un intento de crear una "empresa militar privada de hackers".</li>
+        </ul>
+        <h4>Killnet — Países Atacados</h4>
+        <p>Killnet declaró oficialmente "guerra cibernética" contra <strong>10 países</strong>:</p>
+        <ul>
+            <li>🇺🇸 Estados Unidos</li>
+            <li>🇬🇧 Reino Unido</li>
+            <li>🇩🇪 Alemania</li>
+            <li>🇮🇹 Italia</li>
+            <li>🇵🇱 Polonia</li>
+            <li>🇷🇴 Rumania</li>
+            <li>🇱🇻 Letonia</li>
+            <li>🇪🇪 Estonia</li>
+            <li>🇱🇹 Lituania</li>
+            <li>🇺🇦 Ucrania</li>
+        </ul>
+    </div>
+
+    <!-- ======================== NONAME057(16) ======================== -->
+    <div class="section">
+        <h3>⚔️ NONAME057(16) · EL REEMPLAZO DE KILLNET</h3>
+        <h4>El Ascenso del Nuevo Líder</h4>
+        <p>Mientras Killnet se fragmentaba, otro grupo emergía para ocupar el vacío. <strong>NoName057(16)</strong> apareció en marzo de 2022, casi al mismo tiempo que la invasión. Pero a diferencia de Killnet, NoName057(16) no tenía un origen criminal. Era, desde el principio, un grupo <strong>ideológico</strong>.</p>
+        <p>Su nombre, extraño y aparentemente aleatorio, ocultaba una estructura mucho más organizada que la de Killnet. NoName057(16) no se basaba en el carisma de un solo líder; operaba como un colectivo con una jerarquía clara y una herramienta propia: <strong>DDoSia</strong>.</p>
+        <h4>DDoSia · El Arma que Cambió el Juego</h4>
+        <p>DDoSia es una herramienta de ataque distribuido de denegación de servicio que NoName057(16) puso a disposición de sus voluntarios. Cualquier persona con un ordenador y conexión a internet podía descargarla y contribuir a los ataques. Era la <strong>democratización del ciberataque</strong>.</p>
+        <p>La efectividad de DDoSia fue inmediata. NoName057(16) comenzó a atacar objetivos en países de la OTAN y la UE a un ritmo que Killnet nunca había alcanzado. Sus ataques se dirigían contra:</p>
+        <ul>
+            <li>Gobiernos locales del Reino Unido</li>
+            <li>Infraestructura crítica en toda Europa</li>
+            <li>Sectores financiero, transporte, energía y telecomunicaciones en Polonia, República Checa y Japón</li>
+        </ul>
+        <p>Para cuando los analistas de seguridad comenzaron a prestar atención, NoName057(16) ya había superado a Killnet en actividad y sofisticación.</p>
+        <h4>La Toma de Conciencia de las Agencias</h4>
+        <p>En 2025, la agencia de la UE <strong>Eurojust</strong> logró un avance significativo: identificó a los principales coordinadores de NoName057(16) como <strong>Mikhail Burlakov</strong> (39 años) y <strong>Maxim Lupin</strong> (36 años), acusándolos de desarrollar y mantener DDoSia y pagar los servidores utilizados por el grupo.</p>
+        <p>La investigación también reveló que NoName057(16) había ejecutado múltiples ataques DDoS contra infraestructura crítica durante eventos políticos de alto nivel. No solo atacaban cuando podían; atacaban <strong>cuando más dolía</strong>.</p>
+    </div>
+
+    <!-- ======================== HOLY LEAGUE ======================== -->
+    <div class="section">
+        <h3>🤝 LA HIGH SOCIETY ALLIANCE Y LA SANTA LEAGUE</h3>
+        <h4>La Coordinación Horizontal</h4>
+        <p>En julio de 2024, el ecosistema prorruso dio un paso más allá. <strong>High Society</strong> y <strong>7 October Union</strong> (un grupo pro-palestino) se fusionaron para crear la <strong>Holy League</strong>. Esta coalición reunió a aproximadamente <strong>90 grupos hacktivistas</strong>, incluyendo a NoName057(16), UserSec, Cyber Army of Russia, y muchos otros.</p>
+        <p>La Holy League no era una organización jerárquica como Killnet. Era una <strong>red horizontal</strong> donde cada grupo mantenía su autonomía pero coordinaba sus ataques para maximizar el impacto. Atacaban simultáneamente, compartían inteligencia y celebraban sus victorias colectivamente.</p>
+        <p>Este modelo resultó ser más resistente que el de Killnet. Cuando Telegram cerraba un canal, otros cinco aparecían para reemplazarlo. Cuando un grupo era infiltrado, otro tomaba su relevo. La Holy League era como una hidra: corta una cabeza y dos crecen en su lugar.</p>
+        <h4>Los Objetivos de la Holy League</h4>
+        <p>La coalición se centró en:</p>
+        <ul>
+            <li><strong>Israel:</strong> Por su conflicto con Palestina.</li>
+            <li><strong>Ucrania:</strong> Por la guerra con Rusia.</li>
+            <li><strong>OTAN:</strong> Por su apoyo a Ucrania.</li>
+            <li><strong>Unión Europea:</strong> Por las sanciones a Rusia.</li>
+        </ul>
+        <p>Pero el objetivo más inquietante era <strong>la infraestructura crítica del Reino Unido</strong>. En abril de 2025, la Holy League lanzó una ofensiva contra sistemas críticos británicos, demostrando que su capacidad operativa no tenía límites geográficos.</p>
+    </div>
+
+    <!-- ======================== CYBERVOLK ======================== -->
+    <div class="section">
+        <h3>💻 CYBERVOLK · EL HÍBRIDO IDEOLÓGICO-LUCRATIVO</h3>
+        <h4>De Hacktivistas a Ransomware</h4>
+        <p>En 2024, un nuevo actor apareció en el ecosistema: <strong>CyberVolk</strong>. Originario de India, este grupo adoptó rápidamente una postura prorrusa, pero con una diferencia clave: <strong>no eran idealistas</strong>.</p>
+        <p>CyberVolk combinaba el hacktivismo (ataques DDoS y defacements) con el cibercrimen puro (ransomware). En diciembre de 2025, lanzaron <strong>VolkLocker</strong>, un servicio de ransomware-as-a-service (RaaS) que operaba completamente a través de Telegram.</p>
+        <h4>VolkLocker · Un RaaS con Fallos</h4>
+        <p>VolkLocker permitía a cualquier afiliado generar payloads de ransomware, coordinar ataques y gestionar rescates, todo desde Telegram. Los operadores debían proporcionar una dirección de bitcoin, un token de bot de Telegram, un ID de chat, una fecha límite de cifrado y opciones de autodestrucción.</p>
+        <p>Pero había un problema: VolkLocker contenía fallos de implementación graves. Los investigadores de SentinelOne descubrieron que las claves maestras estaban <strong>hardcodeadas</strong>, lo que permitía a las víctimas recuperar sus datos sin pagar el rescate.</p>
+        <p>CyberVolk era ambicioso, pero no competente. Su intento de monetizar el hacktivismo reveló una verdad incómoda: no todos los grupos prorrusos eran igual de peligrosos. Algunos eran simplemente oportunistas con más entusiasmo que habilidad.</p>
+    </div>
+
+    <!-- ======================== PAÍSES AFECTADOS ======================== -->
+    <div class="section">
+        <h3>🌍 PAÍSES AFECTADOS POR ATAQUES</h3>
+        <h4>NoName057(16) — Alcance Global</h4>
+        <p>El grupo ha atacado <strong>más de 30 países</strong> en Europa, América del Norte y Asia.</p>
+        <h5>Europa</h5>
+        <table>
+            <tr><th>País</th><th>Detalles de los Ataques</th></tr>
+            <tr><td>🇩🇪 Alemania</td><td><strong>14 oleadas</strong> de ataques, afectando a <strong>más de 250 organizaciones</strong> (fábricas de armamento, proveedores eléctricos, gobiernos)</td></tr>
+            <tr><td>🇵🇱 Polonia</td><td>Ataques sostenidos; objetivo en campañas coordinadas de la HSA</td></tr>
+            <tr><td>🇱🇹 Lituania</td><td>Múltiples ataques; país participante en operaciones contra el grupo</td></tr>
+            <tr><td>🇱🇻 Letonia</td><td>Ataques a infraestructura crítica</td></tr>
+            <tr><td>🇪🇪 Estonia</td><td>Objetivo recurrente</td></tr>
+            <tr><td>🇸🇪 Suecia</td><td>Ataques a <strong>gobiernos y bancos</strong></td></tr>
+            <tr><td>🇳🇱 Países Bajos</td><td>Ataques durante la <strong>Cumbre de la OTAN</strong> (junio 2025)</td></tr>
+            <tr><td>🇨🇭 Suiza</td><td>Ataques durante la <strong>Cumbre de Paz para Ucrania</strong> (junio 2024)</td></tr>
+            <tr><td>🇪🇸 España</td><td>Múltiples objetivos gubernamentales y estratégicos</td></tr>
+            <tr><td>🇫🇷 Francia</td><td>Ataques a infraestructura</td></tr>
+            <tr><td>🇮🇹 Italia</td><td>Objetivo durante las <strong>Olimpiadas de Invierno Milano Cortina 2026</strong></td></tr>
+            <tr><td>🇨🇿 República Checa</td><td>Ataques recurrentes</td></tr>
+            <tr><td>🇷🇴 Rumania</td><td>Ataques durante la re-elección</td></tr>
+            <tr><td>🇬🇧 Reino Unido</td><td>Ataques a <strong>gobiernos locales e infraestructura crítica</strong></td></tr>
+            <tr><td>🇩🇰 Dinamarca</td><td><strong>247 ataques</strong> solo en 2026; campañas focalizadas</td></tr>
+            <tr><td>🇳🇴 Noruega</td><td>Ataques a infraestructura</td></tr>
+            <tr><td>🇫🇮 Finlandia</td><td>Ataques en la región nórdica</td></tr>
+            <tr><td>🇧🇪 Bélgica</td><td>Campañas focalizadas</td></tr>
+        </table>
+        <h5>América del Norte</h5>
+        <ul>
+            <li>🇺🇸 Estados Unidos — Objetivo principal; ataques a infraestructura</li>
+            <li>🇨🇦 Canadá — Ataques recurrentes</li>
+        </ul>
+        <h5>Asia y Oriente Medio</h5>
+        <ul>
+            <li>🇯🇵 Japón — <strong>39.4% de todos los ataques</strong> en una campaña (2.144 objetivos)</li>
+            <li>🇮🇱 Israel — Objetivo por su postura geopolítica</li>
+            <li>🇹🇷 Turquía — Ataques documentados</li>
+            <li>🇹🇼 Taiwán — Ataques documentados</li>
+            <li>🇰🇷 Corea del Sur — Ataques documentados</li>
+        </ul>
+        <h5>Otros Países Afectados</h5>
+        <ul>
+            <li>🇺🇦 Ucrania — Objetivo principal y original</li>
+            <li>🇲🇩 Moldavia — Ataques documentados</li>
+            <li>🇦🇺 Australia — Ataques por grupos aliados (RuskiNet)</li>
+        </ul>
+    </div>
+
+    <!-- ======================== OPERACIONES POLICIALES ======================== -->
+    <div class="section">
+        <h3>👮 OPERACIONES POLICIALES Y DETENIDOS</h3>
+        <h4>Operación Eastwood (Julio 2025) · El Golpe contra NoName057(16)</h4>
+        <p>Entre el 14 y el 17 de julio de 2025, una operación internacional coordinada por <strong>Europol y Eurojust</strong>, denominada <strong>Operación Eastwood</strong>, asestó el mayor golpe hasta la fecha contra la infraestructura de NoName057(16). Participaron <strong>12 países núcleo</strong> — EE.UU., Alemania, Países Bajos, Suiza, Suecia, Francia, España, Italia, República Checa, Finlandia, Lituania y Polonia— con apoyo de otros siete países y entidades como ENISA, ShadowServer y abuse.ch.</p>
+        <p><strong>Resultados de la operación:</strong></p>
+        <ul>
+            <li><strong>2 arrestos</strong> (uno en Francia y otro en España)</li>
+            <li><strong>7 órdenes de arresto</strong> (6 emitidas por Alemania, 1 por España)</li>
+            <li><strong>24 registros domiciliarios</strong> en toda Europa</li>
+            <li><strong>Más de 100 servidores</strong> desmantelados</li>
+            <li><strong>13 personas interrogadas</strong></li>
+            <li><strong>Más de 1.000 seguidores</strong> notificados de su responsabilidad legal</li>
+        </ul>
+        <h4>Detenidos Confirmados</h4>
+        <h5>NoName057(16) — Miembros y Operadores</h5>
+        <table>
+            <tr><th>Nombre / Alias</th><th>Nac.</th><th>Edad</th><th>Rol</th><th>Estado</th></tr>
+            <tr><td><strong>Olga Evstratova</strong> ("olechochek")</td><td>Rusa</td><td>21</td><td>Desarrolladora / Optimizadora de <strong>DDoSia</strong></td><td><span class="status-red">● En busca y captura</span></td></tr>
+            <tr><td><strong>Mikhail Evkievich Burlakov</strong> ("darkklogo")</td><td>Ruso</td><td>39</td><td>Principal responsable / Desarrollador de DDoSia</td><td><span class="status-red">● En busca y captura</span></td></tr>
+            <tr><td><strong>Andrei Stanislavovich Afrosimov</strong></td><td>Ruso</td><td>45</td><td>Principal responsable</td><td><span class="status-red">● En busca y captura</span></td></tr>
+            <tr><td><strong>Maxim Lupin</strong></td><td>Ruso</td><td>36</td><td>Líder / Gestor de plataforma ilegal</td><td><span class="status-red">● En busca y captura</span></td></tr>
+            <tr><td><strong>Andrey Muravyov</strong></td><td>Ruso</td><td>48</td><td>Miembro clave (diseño gráfico)</td><td><span class="status-red">● En busca y captura</span></td></tr>
+            <tr><td><strong>Victoria Eduardovna Dubranova</strong></td><td>Ucraniana</td><td>33</td><td>Participación en ataques a infraestructura crítica</td><td><span class="status-yellow">● Extraditada a EE.UU.</span></td></tr>
+            <tr><td><strong>Enrique Arias Gil</strong></td><td>Español</td><td>37</td><td>Miembro de NoName057(16), ataques durante elecciones generales de 2023</td><td><span class="status-red">● Más buscado</span></td></tr>
+            <tr><td><strong>Joven de 18 años</strong></td><td>Polaco</td><td>18</td><td>Colaborador de NoName057(16)</td><td><span class="status-green">● Arrestado</span></td></tr>
+            <tr><td><strong>Dos individuos</strong> (no identificados)</td><td>—</td><td>—</td><td>Miembros del grupo</td><td><span class="status-green">● Arrestados</span></td></tr>
+        </table>
+        <h5>DDoSia — Usuarios y Operadores (Arrestos Previos)</h5>
+        <ul>
+            <li><strong>Tres individuos</strong> (no identificados) — Españoles — Arrestados en Sevilla, Huelva y Manacor (Jul 2024) por usar DDoSia contra gobiernos y la OTAN.</li>
+            <li><strong>Cuatro individuos (22-26 años)</strong> — Holandeses — Procesados en Países Bajos (Rijen, Voorhout, Lelystad y Barneveld) por cientos de ataques DDoS.</li>
+        </ul>
+        <h5>Killnet — Miembros y Colaboradores</h5>
+        <ul>
+            <li><strong>Joven de 24 años</strong> — Alemán (Schleswig-Holstein) — Detenido por soporte a KillNET (2025).</li>
+            <li><strong>Joven de 23 años</strong> — Detenido por ataques contra Rumania (2023).</li>
+            <li><strong>Nikolai Serafimov ("KillMilk")</strong> — Ruso, 30 años — Fundador de Killnet, identificado pero no arrestado (reside en Rusia).</li>
+        </ul>
+        <h4>Sanciones de la UE (Julio 2026)</h4>
+        <p>El Consejo de la UE impuso <strong>sanciones a 9 individuos rusos y 4 entidades</strong> por ciberataques contra el bloque y sus estados miembros. Entre los sancionados se encuentran:</p>
+        <ul>
+            <li><strong>Denis Olegovich Degtyarenko</strong> — hacker principal de CARR (Cyber Army of Russia Reborn)</li>
+            <li><strong>Z-Pentest</strong> — grupo hacktivista prorruso que ataca infraestructura crítica global (sectores de energía y agua)</li>
+        </ul>
+    </div>
+
+    <!-- ======================== ESTADÍSTICAS ======================== -->
+    <div class="section">
+        <h3>📊 ESTADÍSTICAS CLAVE</h3>
+        <table>
+            <tr><th>Indicador</th><th>Dato</th></tr>
+            <tr><td>🌍 Países afectados por NoName057(16)</td><td><strong>30+ países</strong></td></tr>
+            <tr><td>⚔️ Países afectados por Killnet</td><td><strong>10+ países</strong></td></tr>
+            <tr><td>👮 Arrestos NoName057(16) (Operación Eastwood)</td><td><strong>2 arrestos + 7 órdenes</strong></td></tr>
+            <tr><td>🛡️ Arrestos DDoSia (España, 2024)</td><td><strong>3 detenidos</strong></td></tr>
+            <tr><td>🔒 Arrestos Killnet documentados</td><td><strong>3+ detenidos</strong></td></tr>
+            <tr><td>📜 Sanciones UE (2026)</td><td><strong>9 individuos + 4 entidades</strong></td></tr>
+            <tr><td>💻 Servidores desmantelados</td><td><strong>100+</strong></td></tr>
+            <tr><td>👥 Seguidores notificados</td><td><strong>1.000+</strong></td></tr>
+        </table>
+    </div>
+
+    <!-- ======================== EL FUTURO ======================== -->
+    <div class="section">
+        <h3>🔮 EL FUTURO · HACIA DÓNDE VAMOS</h3>
+        <h4>La Evolución Constante</h4>
+        <p>El ecosistema hacktivista prorruso no es estático. Está en constante evolución, adaptándose a las contramedidas y explotando nuevas vulnerabilidades. Algunas tendencias a observar:</p>
+        <ul>
+            <li><strong>Mayor uso de IA:</strong> Los grupos están comenzando a utilizar inteligencia artificial para automatizar ataques y evadir la detección.</li>
+            <li><strong>Campañas híbridas:</strong> Combinación de DDoS, ransomware y desinformación en operaciones coordinadas.</li>
+            <li><strong>Expansión geográfica:</strong> Nuevos grupos emergen en países como India (CyberVolk) y Sudán (Anonymous Sudan), ampliando el alcance del ecosistema.</li>
+            <li><strong>Comercialización:</strong> La línea entre hacktivismo y cibercrimen se difumina cada vez más.</li>
+        </ul>
+        <h4>La Amenaza Persistente</h4>
+        <p>Mientras exista el conflicto entre Rusia y Ucrania, y mientras las tensiones entre la OTAN y Rusia sigan siendo altas, este ecosistema seguirá prosperando. Los grupos prorrusos no son una moda pasajera; son una <strong>característica permanente del panorama de amenazas</strong>.</p>
+        <h4>La Necesidad de Vigilancia Constante</h4>
+        <p>La lección más importante de esta historia es que la vigilancia constante es esencial. No se puede confiar en que los gobiernos o las agencias de inteligencia lo hagan todo. Las organizaciones privadas, los investigadores independientes y las herramientas OSINT desempeñan un papel crucial en la detección temprana y la prevención.</p>
+    </div>
+
+    <!-- ======================== CONCLUSIÓN ======================== -->
+    <div class="section">
+        <h3>📌 CONCLUSIÓN · EL LEGADO DE UNA GUERRA SILENCIOSA</h3>
+        <p>Lo que comenzó como un puñado de individuos con ordenadores y una causa se ha convertido en un ecosistema global de amenazas. Killnet, NoName057(16), la Holy League, CyberVolk y docenas de otros grupos han demostrado que la ciberguerra no es un concepto abstracto; es una realidad cotidiana.</p>
+        <p>Mientras el mundo dormía, ellos construían sus herramientas, reclutaban a sus seguidores y lanzaban sus ataques. Y aunque algunos de sus líderes han sido identificados, y algunos de sus servidores han sido incautados, el ecosistema sigue vivo.</p>
+        <p>La pregunta no es si habrá más ataques, sino <strong>cuándo</strong> y <strong>contra quién</strong>. Y la respuesta, como siempre en el mundo de la ciberseguridad, es: <strong>prepárate para lo peor, espera lo mejor y nunca dejes de vigilar</strong>.</p>
+        <div class="quote">"En la guerra, la verdad es la primera víctima. En la ciberguerra, la verdad es la primera arma."</div>
+    </div>
+
+    <!-- ======================== FUENTES ======================== -->
+    <div class="section">
+        <h3>📚 REFERENCIAS Y FUENTES</h3>
+        <h4>Informes de Seguridad</h4>
+        <ul>
+            <li>NCSC (Reino Unido): <em>Pro-Russia hacktivist DDOS attacks</em> (2026)</li>
+            <li>Eurojust: <em>Hacktivist group responsible for cyberattacks on critical infrastructure in Europe taken down</em> (2025)</li>
+            <li>SentinelOne: <em>CyberVolk's ransomware debut stumbles on cryptography weakness</em> (2025)</li>
+            <li>Flashpoint: <em>'Black Skills' Is Killnet's Attempt to Form a 'Private Military Hacking Company'</em> (2023)</li>
+            <li>Europol: <em>Operación Eastwood - resultados y detenciones</em> (2025)</li>
+        </ul>
+        <h4>Artículos de Investigación</h4>
+        <ul>
+            <li><em>Russian hacker group Killnet returns with new identity</em> (The Record, 2025)</li>
+            <li><em>«От него устали, но боятся»: что известно о лидере хакерской группировки Killnet</em> (Hi-Tech Mail.ru, 2023)</li>
+            <li><em>Two new pro-Russian hacktivist groups target Ukraine, recruit insiders</em> (The Record, 2025)</li>
+        </ul>
+        <h4>Foros Mencionados</h4>
+        <ul>
+            <li>Duty-Free Forum</li>
+            <li>Infinity Forum</li>
+            <li>Exploit.in</li>
+        </ul>
+    </div>
+
+    <!-- ======================== FOOTER ======================== -->
+    <div class="footer">
+        <div class="left">
+            <span class="badge badge-green">OSINT</span>
+            <span class="badge badge-yellow">Estratégico</span>
+            <span style="margin-left: 10px;">21 de Julio de 2026</span>
+        </div>
+        <div class="right">
+            <span class="badge">⚠️ Uso educativo · Concienciación</span>
+            <span style="display:block; margin-top:4px; color:#445;">
+                <span class="highlight">La información debe circular más rápido que los ataques.</span>
+            </span>
+        </div>
+    </div>
+
+    <!-- AVISO LEGAL ESTILO FORO -->
+    <div style="margin-top: 30px; padding: 12px 18px; background: #0b0e14; border: 1px solid #1a1a2a; border-radius: 6px; font-size: 0.75em; color: #445; text-align: center;">
+        Este dossier ha sido compilado exclusivamente a partir de fuentes abiertas y verificables.
+        No contiene información clasificada ni datos obtenidos mediante métodos no éticos.
+        Su propósito es educativo y de concienciación sobre las amenazas actuales en el ciberespacio.
+        <span style="display:block; margin-top:6px; color:#334;">#CIBERWAR #OSINT #KILLNET #NONAME05716 #DDOSIA</span>
+    </div>
+
+</div>
+
+</body>
+</html>
