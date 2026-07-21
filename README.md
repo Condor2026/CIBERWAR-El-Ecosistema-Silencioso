@@ -4,6 +4,7 @@
   <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=28&duration=3000&pause=500&color=00FF00&center=true&vCenter=true&width=700&lines=INFORME+CTI+GLOBAL;EL+NUEVO+ORDEN+DEL+CIBERESPACIO;LA+GUERRA+QUE+NADIE+VE" alt="Typing animation" />
 </p>
 
+![Condor2026](EcoSistemRusia.jpg)
 
 **Informe OSINT sobre hacktivismo prorruso · Killnet · NoName057(16) · DDoSia · Amenazas Híbridas**
 
