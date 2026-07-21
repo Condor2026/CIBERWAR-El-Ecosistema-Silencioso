@@ -496,6 +496,8 @@ La pregunta no es si habrá más ataques, sino **cuándo** y **contra quién**. 
 
 No es paranoia. Es realidad.#CiberWar #CyberWar #Ciberseguridad #InformacionLibre
 
+![Condor2026](CyberWar.jpg)
+
 ---
 
 ## 📁 Contenido
