@@ -4,10 +4,10 @@
 **Autor:** Condor2026
 ---
 
-**Fecha de Compilación:** - 21 de Julio de 2026
-**Clasificación:** - Análisis Estratégico · No Clasificado | CTI PÚBLICO
-**Fuentes:** - 100% OSINT · Canales Públicos · Telegram · Foros · Informes de Seguridad
-**Autor:** - Condor2026 Investigación Independiente de Amenazas 
+- **Fecha de Compilación:**  21 de Julio de 2026
+- **Clasificación:**  Análisis Estratégico · No Clasificado | CTI PÚBLICO
+- **Fuentes:** 100% OSINT · Canales Públicos · Telegram · Foros · Informes de Seguridad
+- **Autor:** Condor2026 Investigación Independiente de Amenazas 
 
 ---
 
