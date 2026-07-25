@@ -12,7 +12,7 @@
 
 
 ## Un Dossier de Inteligencia OSINT sobre Killnet, NoName057(16) y la Nueva Generación de Amenazas Híbridas
-**Autor:** Condor2026
+🦅  **Autor:** Condor2026 - Threat Security - **Andromeda Private Suite** - **PURPLETEAM** - **Defense** - **StopCiberAttack** - **Prevencion** - **Periodismo** - **Threat Intelligence**  🦅
 ---
 
 - **Fecha de Compilación:**  21 de Julio de 2026
